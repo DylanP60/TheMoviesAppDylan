@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const searchAPI = (url, key) => callback => {
+/* const searchAPI = (url, key) => (callback) => {
+  const request = axios.get(
+    'https://api.themoviedb.org/3/movie/550?api_key=0a6cafde615aae846797c8848c1902b0',
+  ); */
+
+const searchAPI = () => (callback) => {
   const request = axios.get(
     'https://api.themoviedb.org/3/movie/550?api_key=0a6cafde615aae846797c8848c1902b0',
   );
