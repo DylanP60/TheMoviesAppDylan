@@ -3,7 +3,14 @@ import fontawesome from '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 import regular from '@fortawesome/fontawesome-free/scss/regular.scss';
 import solid from '@fortawesome/fontawesome-free/scss/solid.scss';
 import brands from '@fortawesome/fontawesome-free/scss/brands.scss';
+
+import apiKey from './services/apiKey';
+import urlApi from './services/urlApi';
+
 import searchAPI from './services/searchAPI';
+import urlParameters from './services/urlParameters';
+import showMovie from './services/showMovie';
+import movieSelected from './services/movieSelected';
 
 fontawesome = '';
 regular = '';
@@ -13,7 +20,7 @@ brands = '';
 const test = () => fontawesome + regular + solid + brands;
 test();
 
-const search = searchAPI('https://api.themoviedb.org/3/movie/', '0a6cafde615aae846797c8848c1902b0');
+const search = searchAPI(`${urlApi}/movie/', ${apiKey}`);
 
 function Time(n) {
   const num = n;
@@ -57,8 +64,25 @@ search((results) => {
       document.getElementById('iconID').classList.add('far');
     }
   });
+  // total number of stars
+  const starTotal = 10;
+  const starPercentage = (results.vote_average / starTotal) * 100;
+  const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+  document.getElementById('vote-average-1').style.width = starPercentageRounded;
 });
 
+
+// test
+if (urlParameters.Url().pathname === '/movie.html') {
+  if (urlParameters.UrlParamSearchBySelectedMovie()) {
+    const selectedMovie = urlParameters.UrlParamSearchBySelectedMovie();
+    const movie = movieSelected('https://api.themoviedb.org/3', '0a6cafde615aae846797c8848c1902b0');
+
+    movie(selectedMovie, (results) => {
+      document.getElementById('movie-container').innerHTML = showMovie(results);
+    });
+  }
+}
 
 /* const app = { test: "test"};
 const app2 = { ...app2};

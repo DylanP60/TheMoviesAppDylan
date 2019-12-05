@@ -32,17 +32,8 @@ body {
 
 .view-more {
 width: 25%;
+margin-left: 35%;
 }
-
-.view-button {
-	width: 100%;
-	margin-left: 70%
-}
-
-.view-com {
-	margin-right: 50%;
-}
-
 
 .img-movie {
 	height: 250px;
@@ -61,53 +52,42 @@ width: 25%;
 
 // Etoiles
 
-/* Par défaut, une étoile est en gris,
-   avec un padding et un curseur en forme de main. */
-.fa-star {
-	color: gray;
-	cursor: pointer;
-	padding: 0.0625rem;
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
 }
-/* Si elle porte en plus la classe '.gold', elle sera en jaune. */
-.fa-star.gold {
-	color: #ffdc0f;
+.stars-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+}
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #F8CE0B;
+}
+.attribution {
+  font-size: 12px;
+  color: #444;
+  text-decoration: none;
+  text-align: center;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: -1;
+}
+.attribution:hover {
+  color: #1FA67A;
 }
 
-/* Le parent global '.rating' positionne le groupe des étoiles et le lien en colonne */
-.rating {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 40%;
-	float: left;
-}
-
-	/* Le groupe '.stars' positionne les étoiles
-		 les unes à côté des autres sans espacements. */
-	.stars {
-		display: inline-flex;
-		justify-content: center;
-		font-size: 1em;
-		margin-right: 50%;
-	}
-
-	/**
-	 * Et là opère la magie du ':hover' !
-	 */
-
-	/* A l'état :hover sur le parent '.rating',
-		 on force TOUTES les étoiles à passer en jaune. */
-	.stars:hover .fa-star {
-		color: #ffdc0f;
-	}
-	/* Et si la souris survole une étoile en particulier,
-		 on sélectionne toutes les étoiles qui sont APRÈS celle-ci
-		 grâce à l'opérateur '~' et on les force en GRIS */
-	.stars .fa-star:hover ~ .fa-star {
-		color: gray;
-	}
-
-
-
+//
 
 
