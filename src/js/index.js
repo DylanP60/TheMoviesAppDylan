@@ -11,6 +11,8 @@ import searchAPI from './services/searchAPI';
 import urlParameters from './services/urlParameters';
 import showMovie from './services/showMovie';
 import movieSelected from './services/movieSelected';
+// import navbar from './services/navbar';
+import searchMovieById from './services/searchMovieById';
 
 fontawesome = '';
 regular = '';
@@ -20,7 +22,7 @@ brands = '';
 const test = () => fontawesome + regular + solid + brands;
 test();
 
-const search = searchAPI(`${urlApi}/movie/', ${apiKey}`);
+// const search = searchAPI(`${urlApi}/movie`, `${apiKey}`);
 
 function Time(n) {
   const num = n;
@@ -32,45 +34,116 @@ function Time(n) {
   return `${rhours}h${rminutes}`;
 }
 
-search((results) => {
-  // console.log(results);
-  document.getElementById('img').innerHTML = `<img class="img-movie" 
-  src="https://image.tmdb.org/t/p/w500//adw6Lq9FiC9zjYEpOqfq03ituwp.jpg">`;
-  // document.getElementById('title').innerHTML =
-  // `${results.original_title} ${results.release_date}`;
-  document.getElementById('title').innerHTML = results.original_title;
-  document.getElementById('time').innerHTML = Time(results.runtime);
-  document.getElementById('date').innerHTML = results.release_date;
-  document.getElementById('overview').innerHTML = results.overview;
-  document.getElementById('vote').innerHTML = `${results.vote_count} reviews`;
-
-  document.getElementById('title2').innerHTML = `${results.original_title} ${results.release_date}`;
-  document.getElementById('date2').innerHTML = results.release_date;
-  document.getElementById('overview2').innerHTML = results.overview;
-
-  document.getElementById('title3').innerHTML = results.original_title;
-  document.getElementById('date3').innerHTML = results.release_date;
-  document.getElementById('overview3').innerHTML = results.overview;
-  document.getElementById('title4').innerHTML = `${results.original_title} ${results.release_date}`;
-  document.getElementById('date4').innerHTML = results.release_date;
-  document.getElementById('overview4').innerHTML = results.overview;
-
-  document.getElementById('iconID').addEventListener('click', () => {
-    if (document.getElementById('iconID').classList.contains('far') === true) {
-      document.getElementById('iconID').classList.remove('far');
-      document.getElementById('iconID').classList.add('fas');
-    } else {
-      document.getElementById('iconID').classList.remove('fas');
-      document.getElementById('iconID').classList.add('far');
-    }
-  });
+function stars(number) {
   // total number of stars
   const starTotal = 10;
-  const starPercentage = (results.vote_average / starTotal) * 100;
+  const starPercentage = (number / starTotal) * 100;
   const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-  document.getElementById('vote-average-1').style.width = starPercentageRounded;
-});
+  return starPercentageRounded;
+}
 
+document.getElementById('searchBar').addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    document.getElementById('listMovies').innerHTML = '';
+    const searchMovies = searchAPI(`${urlApi}/search/movie`, `${apiKey}&query=${document.getElementById('searchBar').value}`);
+    searchMovies((results) => {
+      // console.log(results.results);
+      results.results.map((movie) => {
+        const movieById = searchMovieById(`${urlApi}/movie/`, movie.id, `${apiKey}`);
+        movieById((result) => {
+          // ----------------------- Loader test ------------------------- //
+          const whenScrollIsAtBottom = (callback) => {
+            let canRun = true;
+
+            window.addEventListener(
+              'scroll',
+              () => {
+                if (
+                  window.innerHeight + window.scrollY >= document.body.offsetHeight
+                  && typeof callback === 'function'
+                  && canRun
+                ) {
+                  callback();
+                  canRun = false;
+
+                  setTimeout(() => {
+                    canRun = true;
+                  }, 1000);
+                }
+              },
+              false,
+            );
+          };
+
+          const loadMore = () => {
+            setTimeout(() => {
+              const htmlToAdd = `
+                  <div class="row mb-2">
+                    <div class="col-md-6">
+                      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-auto d-none d-lg-block">
+                           <img class="img-movie" src="${result.poster_path != null ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://lightwidget.com/wp-content/uploads/2018/05/local-file-not-found-295x300.png'}">
+                        </div>
+                        <div class="col p-4 d-flex flex-column position-static">
+                          <h3 class="mb-0"><span>${result.title}</span><span><i id="iconID" class="fav far fa-heart"></i></span></h3>
+                          <div class="mb-1 text-muted"><span id="date">${result.release_date}</span> | <span id="time">${Time(result.runtime)}</span></div>
+                          <p class="card-text mb-auto"><div id="overview">${result.overview}</div></p>
+                          <div>
+                            <div class="stars-outer">
+                               <div id=vote-average-1 class="stars-inner" style="width:${stars(result.vote_average)}"></div>
+                            </div>
+                            <a id="vote" href="#" class="view-com">${result.vote_count} reviews</a>
+                            <button type="button" class="view-more btn btn-primary" onclick="window.location.href='movie.html?movie='">View More</button>       
+                         </div>                       
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  `;
+              document.getElementById('elements').innerHTML += htmlToAdd;
+            }, 1000);
+          };
+
+          whenScrollIsAtBottom(loadMore);
+          // ----------------------- Loader test Fin ------------------------- //
+
+          const html = ` <div class="row mb-2">
+                            <div class="col-md-6">
+                              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col-auto d-none d-lg-block">
+                                   <img class="img-movie" src="${result.poster_path != null ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://lightwidget.com/wp-content/uploads/2018/05/local-file-not-found-295x300.png'}">
+                                </div>
+                                <div class="col p-4 d-flex flex-column position-static">
+                                  <h3 class="mb-0"><span>${result.title}</span><span><i id="iconID" class="fav far fa-heart"></i></span></h3>
+                                  <div class="mb-1 text-muted"><span id="date">${result.release_date}</span> | <span id="time">${Time(result.runtime)}</span></div>
+                                  <p class="card-text mb-auto"><div id="overview">${result.overview}</div></p>
+                                  <div>
+                                    <div class="stars-outer">
+                                       <div id=vote-average-1 class="stars-inner" style="width:${stars(result.vote_average)}"></div>
+                                    </div>
+                                    <a id="vote" href="#" class="view-com">${result.vote_count} reviews</a>
+                                    <button type="button" class="view-more btn btn-primary" onclick="window.location.href='movie.html?movie='">View More</button>       
+                                 </div>                       
+                                </div>
+                              </div>
+                            </div>
+                          </div>`;
+          document.getElementById('listMovies').innerHTML += html;
+          document.getElementById('iconIDDeclenche').addEventListener('click', () => {
+            // console.log(this);
+            if (document.getElementById('iconID').classList.contains('far') === true) {
+              document.getElementById('iconID').classList.remove('far');
+              document.getElementById('iconID').classList.add('fas');
+            } else {
+              document.getElementById('iconID').classList.add('far');
+              document.getElementById('iconID').classList.remove('fas');
+            }
+          });
+        }); return null;
+      });
+    });
+  }
+});
 
 // test
 if (urlParameters.Url().pathname === '/movie.html') {
@@ -83,6 +156,7 @@ if (urlParameters.Url().pathname === '/movie.html') {
     });
   }
 }
+
 
 /* const app = { test: "test"};
 const app2 = { ...app2};

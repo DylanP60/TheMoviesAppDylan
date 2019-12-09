@@ -5,12 +5,12 @@ import axios from 'axios';
     'https://api.themoviedb.org/3/movie/550?api_key=0a6cafde615aae846797c8848c1902b0',
   ); */
 
-const searchAPI = (url, apiKey) => (callback) => {
+const searchMovieById = (url, id, apiKey) => (callback) => {
   const request = axios.get(
-    `${url}?api_key=${apiKey}`,
+    `${url}${id}?api_key=${apiKey}`,
   );
 
   request.then(({ data }) => callback(data));
 };
 
-export default searchAPI;
+export default searchMovieById;

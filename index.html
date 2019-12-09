@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-	<script src="bundle.js"></script>
+  <!-- <div id="navbar"></div> -->
 
 		<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -19,10 +19,10 @@
 		  <div class="collapse navbar-collapse" id="navbarResponsive">
 			<div class="input-group md-form form-sm form-1 pl-0 search-bar w-50">
 			  <div class="input-group-prepend">
-			    <span class="input-group-text purple lighten-3" id="basic-text1"><i class="fas fa-search text-white"
-			        aria-hidden="true"></i></span>
+			   <button id="searchButton" class="input-group-text purple lighten-3 fas fa-search text-white"
+			        aria-hidden="true"></button>
 			  </div>
-			  <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+			  <input id="searchBar" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
 			</div>	  	
 		    <ul class="navbar-nav ml-auto">
 		      <li class="nav-item active">
@@ -38,51 +38,23 @@
 		</div>
 	</nav>
 
-    <!-- Jumbotron Header -->
-    <header class="jumbotron my-4">	
-    	<span class="home-marging">
-	       	<a href="#" class="btn btn-primary btn-lg">Home</a> 
-    	</span>
-    	<span>
-    		<h2 class="display-6">The latest movies</h2>  
-    	</span>	
-    </header>	
+  <!-- Jumbotron Header -->
+  <header class="jumbotron my-4">	
+    <div class ="title-header">
+      <span class="home-marging">
+          <a href="#" class="btn btn-primary btn-lg">Home</a> 
+      </span>
+      <span>
+        <h2 class="display-6">The latest movies</h2>  
+      </span>       
+    </div>
+    <div class="filter">
+      <h2>test</h2>
+    </div>
+  </header>	
 
-  <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-      	<div class="col-auto d-none d-lg-block">
-			<div id="img"></div>
-        </div>
-        <div class="col p-4 d-flex flex-column position-static">
-          <h3 class="mb-0"><span id="title"></span><span><i id="iconID" class="fav far fa-heart"></i></span></h3>
-          <div class="mb-1 text-muted"><span id="date"></span> | <span id="time"></span></div>
-          <p class="card-text mb-auto"><div id="overview"></div></p>
-          <div>
-            <div class="stars-outer">
-                    <div id=vote-average-1 class="stars-inner"></div>
-            </div>
-            <a id="vote" href="#" class="view-com"></a>
-	          <button type="button" class="view-more btn btn-primary" onclick="window.location.href='movie.html?movie='">View More</button>		 	  
-	       </div>	                    	
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h3 class="mb-0"><div id="title2"></div></h3>
-          <div class="mb-1 text-muted"><div id="date2"></div></div>
-          <p class="card-text mb-auto"><div id="overview2"></div></p>
-          <a href="#" class="stretched-link">Voir plus</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-<!--           <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
-			<img class="card-img-top" src="https://www.themoviedb.org/" id="img">
-        </div>
-      </div>
-    </div>
-  </div>
+  <div id="listMovies"></div>
+
 
   <div class="row mb-2">
     <div class="col-md-6">
@@ -94,13 +66,12 @@
           <a href="#" class="stretched-link">Voir plus</a>
         </div>
         <div class="col-auto d-none d-lg-block">
-<!--           <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
-			<img class="card-img-top" src="https://www.themoviedb.org/" id="img">
+			     <img class="card-img-top" src="https://www.themoviedb.org/" id="img">
         </div>
       </div>
     </div>
 
-      <div class="col-md-6">
+    <div class="col-md-6">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           <h3 class="mb-0"><div id="title4"></div></h3>
@@ -109,12 +80,22 @@
           <a href="#" class="stretched-link">Voir plus</a>
         </div>
         <div class="col-auto d-none d-lg-block">
-<!--           <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
-			<img class="card-img-top" src="https://www.themoviedb.org/" id="img">
+			     <img class="card-img-top" src="https://www.themoviedb.org/" id="img">
         </div>
       </div>
     </div>
-  </div>  
+  </div> 
 
+  <div id="app">
+    <div id="elements"></div>
+
+    <div class="loader">
+      <div class="round round1"></div>
+      <div class="round round2"></div>
+      <div class="round round3"></div>
+    </div>
+  </div>   
+
+  <script defer src="bundle.js"></script>
 </body>
 </html>
