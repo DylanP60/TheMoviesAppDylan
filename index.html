@@ -26,7 +26,7 @@
 			</div>	  	
 		    <ul class="navbar-nav ml-auto">
 		      <li class="nav-item active">
-		        <a class="nav-link" href="#">Home |
+		        <a class="nav-link" href="http://localhost:3000/">Home |
 		          <span class="sr-only">(current)</span>
 		        </a>
 		      </li>
@@ -42,7 +42,7 @@
   <header class="jumbotron my-4">	
     <div class ="title-header">
       <span class="home-marging">
-          <a href="#" class="btn btn-primary btn-lg">Home</a> 
+          <a href="http://localhost:3000/" class="btn btn-primary btn-lg">Home</a> 
       </span>
       <span>
         <h2 class="display-6">The latest movies</h2>  
@@ -51,12 +51,76 @@
     <div class="filter">
       <h2>test</h2>
     </div>
-  </header>	
+  </header>
 
-  <div id="listMovies"></div>
+  <div class="row">
+
+    <div class="col-md-8">
+      <div id="listMovies"></div>
+        <div id="app">
+          <div id="elements"></div>
+          <div id="loader" class="loader">
+              <div class="round round1"></div>
+              <div class="round round2"></div>
+              <div class="round round3"></div>
+          </div>
+        </div>  
+    </div>
+
+    <div id="filter-film" class="col-4">
+      <div class="row align-items-center m-0 p-3 border">
+        <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+          <li class="nav-item w-50 text-center">
+            <a class="nav-link active" id="filter-tab" data-toggle="tab" href="#filter" role="tab" aria-controls="filter" aria-selected="true">Filter</a>
+          </li>
+          <li class="nav-item w-50 text-center">
+            <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="false">Order</a>
+          </li>
+        </ul>
+        <div class="tab-content w-100" id="myTabContent">
+          <div class="tab-pane fade show active" id="filter" role="tabpanel" aria-labelledby="filter-tab">
+            <div class="form-group">
+              <input type="text" class="form-control mt-4" style="margin-bottom: 5px" id="inputYearFilter" placeholder="Année">
+            </div>
+            <div style="max-height: 78px; overflow-y: scroll;">
+              <div id="listYears">
+              </div>
+            </div>
+            <hr>
+            <p>Genre :</p>
+            <div id="gender" style="overflow-y: scroll;max-height: 130px;">
+            </div>
+            <hr>
+            <div class="form-group">
+              <input type="text" class="form-control mt-4" id="inputActorFilter" placeholder="Actors">
+            </div>
+            <br>
+            <hr>
+            <label for="customRange2">Duration :</label>
+            <br>
+            <input type="range" class="custom-range w-75" min="0" max="4" id="durationRange">
+            <span style="padding-left: 10px;vertical-align: super;"><span id="duration" style="font-size: 0.9em;">2h</span></span>
+          </div>
+          <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+            <div class="form-group">
+              <button class="btn btn-secondary mt-4">Trier par année : </button>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-secondary mt-4">Trier par durée : </button>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-secondary mt-4">Trier par pertinence : </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>	
+
+  
 
 
-  <div class="row mb-2">
+<!--   <div class="row mb-2">
     <div class="col-md-6">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
@@ -84,17 +148,72 @@
         </div>
       </div>
     </div>
+  </div>  -->
+
+<div id='filmDescription' class="d-none">
+  <center>
+    <div>
+         <h3>Movie details</h3>
+         <a class="nav-link" href="#">Home >
+          <span class="sr-only">(current)</span>
+        </a>
+        <p>nom du film</p>         
+    </div>  
+
+    <div class="col-9">
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+
+            <div id="img-desc" class="col-auto d-none d-lg-block"></div> 
+
+           <div class="col p-4 d-flex flex-column position-static">
+              <h3 class="mb-0"><span id="title-desc"></span></h3>
+              <div class="mb-1 text-muted"><span id="date-desc"></span> | <span id="time-desc"></span></div>
+              <div class="stars-outer">
+                 <div id=vote-average-1-desc class="stars-inner" style=""></div>
+              </div>
+              <a id="vote-desc" href="#" class="view-com-desc"></a>
+              <p class="card-text mb-auto"><div id="overview-desc"></div></p>
+          </div>
+
+          <div>
+            <div class="info">
+              <p class="card-text mb-auto"><div id="genre-desc"></div></p>
+              <p class="card-text mb-auto"><div id="director-desc"></div></p>
+              <p class="card-text mb-auto"><div id="writer-desc"></div></p>          
+            </div>
+            
+            <div class="info2">
+              <p class="card-text mb-auto"></p><div class="stars-outer"></div>
+              <p class="card-text mb-auto"></p><div class="stars-outer"></div>
+              <p class="card-text mb-auto"></p><div class="stars-outer"></div>        
+            </div>
+          </div> 
+
+          <br>
+
+          <div>
+            <h5>Autres informations</h5><br>
+              <div class="other-info">
+                <p class="card-text mb-auto"><div id="dvd-desc"></div></p>
+                <p class="card-text mb-auto"><div id="boxoffice-desc"></div></p>
+                <p class="card-text mb-auto"><div id="awards-desc"></div></p>          
+              </div>
+              <div class="other-info2">
+                <p class="card-text mb-auto"><div id="production-desc"></div></p>
+                <p class="card-text mb-auto"><div id="website-desc"></div></p>
+                <p class="card-text mb-auto"><div id="country-desc"></div></p>          
+            </div>        
+          </div>      
+        </div>
+
+      </div>
+    </div>
+  </center>
   </div> 
 
-  <div id="app">
-    <div id="elements"></div>
+  <div class="container container-width m-0 p-0"> 
 
-    <div class="loader">
-      <div class="round round1"></div>
-      <div class="round round2"></div>
-      <div class="round round3"></div>
-    </div>
-  </div>   
 
   <script defer src="bundle.js"></script>
 </body>
