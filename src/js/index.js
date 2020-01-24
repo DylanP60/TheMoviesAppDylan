@@ -16,16 +16,16 @@ import searchMovieById from './services/searchMovieById';
 import searchMovieByGenre from './services/searchMovieByGenre';
 
 // filter
-import durationRange from './services/durationRange';
-import changeButton from './services/changeButton'; 
+/* import durationRange from './services/durationRange';
+import changeButton from './services/changeButton'; */
 
-/*fontawesome = '';
+fontawesome = '';
 regular = '';
 solid = '';
 brands = '';
 
 const test = () => fontawesome + regular + solid + brands;
-test();*/
+test();
 
 // const search = searchAPI(`${urlApi}/movie`, `${apiKey}`);
 
@@ -52,7 +52,7 @@ document.getElementById('searchBar').addEventListener('keyup', (event) => {
     document.getElementById('listMovies').innerHTML = '';
     const searchMovies = searchAPI(`${urlApi}/search/movie`, `${apiKey}&query=${document.getElementById('searchBar').value}`);
     searchMovies((results) => {
-      console.log(results.results);
+      /* console.log(results.results); */
       results.results.map((movie) => {
         const movieById = searchMovieById(`${urlApi}/movie/`, movie.id, `${apiKey}`);
         movieById((result) => {
@@ -98,7 +98,7 @@ document.getElementById('searchBar').addEventListener('keyup', (event) => {
 
               let idFilm = element.id;
               idFilm = idFilm.split('detail-film-');
-              idFilm = idFilm[1]; 
+              /* idFilm = idFilm[1]; */
 
               const movieById2 = searchMovieById(`${urlApi}/movie/`, idFilm, `${apiKey}`);
               movieById2((result2) => {
@@ -119,7 +119,7 @@ document.getElementById('searchBar').addEventListener('keyup', (event) => {
               });
             });
           });
-        });
+        }); return null;
       });
     });
   }
@@ -177,7 +177,7 @@ window.onload = function () {
 
           let idFilm = element.id;
           idFilm = idFilm.split('detail-film-');
-          idFilm = idFilm[1]; 
+          /* idFilm = idFilm[1]; */
 
           const movieById3 = searchMovieById(`${urlApi}/movie/`, idFilm, `${apiKey}`);
           movieById3((result3) => {
@@ -211,7 +211,7 @@ getMovieByGenre((results) => {
                             <input type="checkbox" class="custom-control-input" id="gender_${result.id}" name="genders[]">
                             <label class="custom-control-label" for="gender_${result.id}">${result.name}</label>
                           </div>
-                        </li>`;
+                        </li>`; return null;
   });
   htmlForMovieByGenres += '</ul>';
   document.getElementById('gender').innerHTML = htmlForMovieByGenres;

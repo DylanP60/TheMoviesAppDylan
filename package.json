@@ -6,8 +6,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
-    "test": "cross-env NODE_ENV=test jest"
-
+    "test": "cross-env NODE_ENV=test jest",
+    "lint:fix": "eslint --fix src/**/*.js",
+    "lint": "eslint src/**/*.js"
   },
   "repository": {
     "type": "git",
