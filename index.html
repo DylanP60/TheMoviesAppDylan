@@ -12,7 +12,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container container-width m-0 p-0"> 
 			<div class="logo"></div>
-			  <a class="navbar-brand" href="#"><h3>The Movies App</h3></a>
+			  <a class="navbar-brand" href="http://localhost:3000/"><h3>The Movies App</h3></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
@@ -22,7 +22,7 @@
 			   <button id="searchButton" class="input-group-text purple lighten-3 fas fa-search text-white"
 			        aria-hidden="true"></button>
 			  </div>
-			  <input id="searchBar" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+			  <input id="searchBar" class="form-control my-0 py-1" type="text" placeholder="Recherche" aria-label="Search">
 			</div>	  	
 		    <ul class="navbar-nav ml-auto">
 		      <li class="nav-item active">
@@ -48,9 +48,6 @@
         <h2 class="display-6">The latest movies</h2>  
       </span>       
     </div>
-    <div class="filter">
-      <h2>test</h2>
-    </div>
   </header>
 
   <div class="row">
@@ -71,10 +68,10 @@
       <div class="row align-items-center m-0 p-3 border">
         <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
           <li class="nav-item w-50 text-center">
-            <a class="nav-link active" id="filter-tab" data-toggle="tab" href="#filter" role="tab" aria-controls="filter" aria-selected="true">Filter</a>
+            <a class="nav-link active" id="filter-tab" data-toggle="tab" href="#filter" role="tab" aria-controls="filter" aria-selected="true">Filtre</a>
           </li>
           <li class="nav-item w-50 text-center">
-            <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="false">Order</a>
+            <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="false">Ordre</a>
           </li>
         </ul>
         <div class="tab-content w-100" id="myTabContent">
@@ -92,25 +89,27 @@
             </div>
             <hr>
             <div class="form-group">
-              <input type="text" class="form-control mt-4" id="inputActorFilter" placeholder="Actors">
+              <input type="text" class="form-control mt-4" id="inputActorFilter" placeholder="Acteurs">
             </div>
             <br>
             <hr>
-            <label for="customRange2">Duration :</label>
+            <label for="customRange2">Durée du film :</label>
             <br>
             <input type="range" class="custom-range w-75" min="0" max="4" id="durationRange">
             <span style="padding-left: 10px;vertical-align: super;"><span id="duration" style="font-size: 0.9em;">2h</span></span>
           </div>
           <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
-            <div class="form-group">
-              <button class="btn btn-secondary mt-4">Trier par année : </button>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-secondary mt-4">Trier par durée : </button>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-secondary mt-4">Trier par pertinence : </button>
-            </div>
+            <center>
+              <div class="form-group">
+                <button class="btn btn-secondary mt-4">Année </button>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-secondary mt-4">Durée</button>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-secondary mt-4">Pertinence</button>
+              </div>
+            </center>  
           </div>
         </div>
       </div>
@@ -154,10 +153,10 @@
   <center>
     <div>
          <h3>Movie details</h3>
-         <a class="nav-link" href="#">Home >
+         <a class="nav-link" href="http://localhost:3000/">Home
           <span class="sr-only">(current)</span>
         </a>
-        <p>nom du film</p>         
+        <p><span id="title-desc"></span></p>         
     </div>  
 
     <div class="col-9">
@@ -176,33 +175,37 @@
               <p class="card-text mb-auto"><div id="overview-desc"></div></p>
           </div>
 
+          <br><br>
+
           <div>
             <div class="info">
-              <p class="card-text mb-auto"><div id="genre-desc"></div></p>
-              <p class="card-text mb-auto"><div id="director-desc"></div></p>
-              <p class="card-text mb-auto"><div id="writer-desc"></div></p>          
+              <p class="card-text mb-auto"><div id="genre-desc">Genre :</div></p>
+              <p class="card-text mb-auto"><div id="director-desc">Director : </div></p>
+              <p class="card-text mb-auto"><div id="writer-desc">Writer :</div></p>          
             </div>
             
             <div class="info2">
-              <p class="card-text mb-auto"></p><div class="stars-outer"></div>
-              <p class="card-text mb-auto"></p><div class="stars-outer"></div>
-              <p class="card-text mb-auto"></p><div class="stars-outer"></div>        
+              <p class="card-text mb-auto">Internet Movie Database</p><div class="stars-outer2">
+</div>
+              <p class="card-text mb-auto">Rotten Tomatoes</p><div class="stars-outer2">
+</div>
+              <p class="card-text mb-auto">Metacritic</p><div class="stars-outer2"></div>        
             </div>
           </div> 
 
-          <br>
+          <br><br>
 
           <div>
-            <h5>Autres informations</h5><br>
+            <h5><strong>Autres informations</strong></h5><br>
               <div class="other-info">
-                <p class="card-text mb-auto"><div id="dvd-desc"></div></p>
-                <p class="card-text mb-auto"><div id="boxoffice-desc"></div></p>
+                <p class="card-text mb-auto"><div id="language-desc"></div></p>
+                <p class="card-text mb-auto"><div id="original-desc"></div></p>
                 <p class="card-text mb-auto"><div id="awards-desc"></div></p>          
               </div>
               <div class="other-info2">
-                <p class="card-text mb-auto"><div id="production-desc"></div></p>
+                <p class="card-text mb-auto"><div id="popularity-desc"></div></p>
                 <p class="card-text mb-auto"><div id="website-desc"></div></p>
-                <p class="card-text mb-auto"><div id="country-desc"></div></p>          
+                <p class="card-text mb-auto"><div id="country-desc">Country : USA</div></p>          
             </div>        
           </div>      
         </div>

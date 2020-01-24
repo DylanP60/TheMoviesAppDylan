@@ -52,12 +52,12 @@ document.getElementById('searchBar').addEventListener('keyup', (event) => {
     document.getElementById('listMovies').innerHTML = '';
     const searchMovies = searchAPI(`${urlApi}/search/movie`, `${apiKey}&query=${document.getElementById('searchBar').value}`);
     searchMovies((results) => {
-      // console.log(results.results);
+      console.log(results.results);
       results.results.map((movie) => {
         const movieById = searchMovieById(`${urlApi}/movie/`, movie.id, `${apiKey}`);
         movieById((result) => {
           const html = ` <div class="row mb-2">
-                              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="width: 100%">
                                 <div class="col-auto d-none d-lg-block">
                                    <img class="img-movie" src="${result.poster_path != null ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://lightwidget.com/wp-content/uploads/2018/05/local-file-not-found-295x300.png'}">
                                 </div>
@@ -93,6 +93,7 @@ document.getElementById('searchBar').addEventListener('keyup', (event) => {
               document.getElementById('listMovies').classList.add('d-none');
               document.getElementById('elements').classList.add('d-none');
               document.getElementById('loader').classList.add('d-none');
+              document.getElementById('filter-film').classList.add('d-none');
               document.getElementById('filmDescription').classList.remove('d-none');
 
               let idFilm = element.id;
@@ -111,11 +112,14 @@ document.getElementById('searchBar').addEventListener('keyup', (event) => {
                 document.getElementById('time-desc').innerHTML += Time(result2.runtime);
                 document.getElementById('overview-desc').innerHTML += result2.overview;
                 document.getElementById('vote-average-1-desc').style.width += result2.vote_average;
-                document.getElementById('vote-desc').innerHTML += result2.vote_count;
+                document.getElementById('vote-desc').innerHTML += `${result2.vote_count} reviews`;
+                document.getElementById('language-desc').innerHTML += `Original language : ${result2.original_language}`;
+                document.getElementById('original-desc').innerHTML += `Original title : ${result2.original_title}`;
+                document.getElementById('popularity-desc').innerHTML += `Popularity ${result2.popularity}%`;
               });
             });
           });
-        }); return null;
+        });
       });
     });
   }
@@ -142,7 +146,7 @@ window.onload = function () {
   searchMovies((movie) => {
     const movieById = searchMovieById(`${urlApi}/movie/`, movie.id, `${apiKey}`);
     movieById((result) => {
-      const html = `      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      const html = `      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="width: 100%">
                           <div class="col-auto d-none d-lg-block">
                              <img class="img-movie" src="${result.poster_path != null ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : 'https://lightwidget.com/wp-content/uploads/2018/05/local-file-not-found-295x300.png'}">
                           </div>
@@ -168,6 +172,7 @@ window.onload = function () {
           document.getElementById('listMovies').classList.add('d-none');
           document.getElementById('elements').classList.add('d-none');
           document.getElementById('loader').classList.add('d-none');
+          document.getElementById('filter-film').classList.add('d-none');
           document.getElementById('filmDescription').classList.remove('d-none');
 
           let idFilm = element.id;
@@ -186,7 +191,10 @@ window.onload = function () {
             document.getElementById('time-desc').innerHTML += Time(result3.runtime);
             document.getElementById('overview-desc').innerHTML += result3.overview;
             document.getElementById('vote-average-1-desc').style.width += result3.vote_average;
-            document.getElementById('vote-desc').innerHTML += result3.vote_count;
+            document.getElementById('vote-desc').innerHTML += `${result3.vote_count} reviews`;
+            document.getElementById('language-desc').innerHTML += `Original language : ${result3.original_language}`;
+            document.getElementById('original-desc').innerHTML += `Original title : ${result3.original_title}`;
+            document.getElementById('popularity-desc').innerHTML += `Popularity : ${result3.popularity}%`;
           });
         });
       });
